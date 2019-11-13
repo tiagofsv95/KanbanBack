@@ -12,6 +12,8 @@ class CardController{
             }
         );
 
+        req.io.emit('post', card);
+
         return res.json(card);
     };
     
@@ -21,12 +23,18 @@ class CardController{
         return res.json(card);
     };
 
-    /*async index(req, res) {
-        //const card = await Card.find().sort('-createdAt');
+    async change(req, res){
+        const card = await Card.findById(req.params.id);
+        
+        card.status = req.params.idColumn;
 
-        return res.json("Hello Word");
-        //return res.json(card);
-    };*/
+        await card.save();
+
+        req.io.emit('change', card);
+
+        return res.json(card);
+    }
+
 }
 
 module.exports = new CardController();

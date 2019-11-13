@@ -6,7 +6,7 @@ const CardController = require('./controllers/CardController');
 
 routes.post('/cards', CardController.store);
 routes.get('/cards', CardController.index);
-//routes.put('/:id', CardController.store);
-//routes.delete('/:id', CardController.store);
+
+routes.put('/cards/:id/:idColumn', CardController.change);
 
 module.exports = routes;
